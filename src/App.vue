@@ -250,4 +250,13 @@ p {
   overflow-x: auto;
   overflow-y: hidden;
 }
+
+.form-check-label::before {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: '';
+}
 </style>
