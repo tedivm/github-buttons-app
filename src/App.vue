@@ -158,6 +158,7 @@ export default {
       }
 
       return {
+        class: 'github-button',
         href: (() => {
           const base = 'https://github.com'
           const user = '/' + options.user
