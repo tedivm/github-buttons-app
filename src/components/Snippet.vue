@@ -1,5 +1,5 @@
 <template>
-  <textarea class="form-control" rows="2" readonly
+  <textarea class="form-control" :rows="code.split('\n').length" readonly
     v-model="code"
     @click="$el.select()"
     @focus="$el.select()"

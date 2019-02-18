@@ -44,6 +44,13 @@
               </label>
             </div>
           </div>
+          <div class="form-group">
+            <label for="syntax">Syntax</label>
+            <select id="syntax" class="custom-select" v-model="options.syntax">
+              <option>html</option>
+              <option value="vue">vue-github-button</option>
+            </select>
+          </div>
         </div>
         <div class="col-12 col-sm-6 col-md-8">
           <h4>Preview and code</h4>
@@ -52,7 +59,7 @@
             <github-button v-bind="{ ...attrs, 'data-show-count': attrs['data-show-count'] && !timeoutID }"></github-button>
           </p>
           <div class="form-group">
-            <snippet :code="aHTML"></snippet>
+            <snippet :code="templateHTML"></snippet>
           </div>
           <div class="form-group">
             <snippet :code="scriptHTML"></snippet>
@@ -67,11 +74,6 @@
 import './main.css'
 import GithubButton from 'vue-github-button'
 import Snippet from '@/components/Snippet'
-import {
-  aComment,
-  scriptComment,
-  scriptElement
-} from '@/html'
 
 export default {
   name: 'app',
@@ -113,9 +115,9 @@ export default {
         type: null,
         largeButton: false,
         showCount: false,
-        standardIcon: false
+        standardIcon: false,
+        syntax: 'html'
       },
-      scriptHTML: scriptComment + '\n' + scriptElement,
       timeoutID: 0
     }
   },
@@ -158,7 +160,6 @@ export default {
       }
 
       return {
-        class: 'github-button',
         href: (() => {
           const base = 'https://github.com'
           const user = '/' + options.user
@@ -220,8 +221,20 @@ export default {
         })()
       }
     },
-    aHTML () {
-      const a = document.createElement('a')
+    templateHTML () {
+      const a = document.createElement((() => {
+        switch (this.options.syntax) {
+          case 'vue':
+            return 'github-button'
+          default:
+            return 'a'
+        }
+      })())
+
+      if (this.options.syntax === 'html') {
+        a.className = 'github-button'
+      }
+
       const attrs = this.attrs
       for (let key in attrs) {
         if (attrs[key] != null) {
@@ -232,7 +245,15 @@ export default {
           }
         }
       }
-      return aComment + '\n' + a.outerHTML
+      return '<!-- Place this tag where you want the button to render. -->\n' + a.outerHTML
+    },
+    scriptHTML () {
+      switch (this.options.syntax) {
+        case 'vue':
+          return 'import GithubButton from \'vue-github-button\'\n\nexport default {\n  components: {\n    GithubButton\n  },\n  // ...\n}'
+        default:
+          return '<!-- Place this tag in your head or just before your close body tag. -->\n<script async defer src="https://buttons.github.io/buttons.js"></scr' + 'ipt>'
+      }
     }
   },
   filters: {
