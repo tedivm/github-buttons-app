@@ -49,6 +49,7 @@
             <select id="syntax" class="custom-select" v-model="options.syntax">
               <option>html</option>
               <option value="vue">vue-github-button</option>
+              <option value="react">react-github-btn</option>
             </select>
           </div>
         </div>
@@ -222,14 +223,7 @@ export default {
       }
     },
     templateHTML () {
-      const a = document.createElement((() => {
-        switch (this.options.syntax) {
-          case 'vue':
-            return 'github-button'
-          default:
-            return 'a'
-        }
-      })())
+      const a = document.createElement('a')
 
       if (this.options.syntax === 'html') {
         a.className = 'github-button'
@@ -245,12 +239,23 @@ export default {
           }
         }
       }
-      return '<!-- Place this tag where you want the button to render. -->\n' + a.outerHTML
+      return '<!-- Place this tag where you want the button to render. -->\n' + ((html) => {
+        switch (this.options.syntax) {
+          case 'vue':
+            return html.replace(/^<a/, '<github-button').replace(/a>$/, 'github-button>')
+          case 'react':
+            return html.replace(/^<a/, '<GitHubButton').replace(/a>$/, 'GitHubButton>')
+          default:
+            return html
+        }
+      })(a.outerHTML)
     },
     scriptHTML () {
       switch (this.options.syntax) {
         case 'vue':
           return 'import GithubButton from \'vue-github-button\'\n\nexport default {\n  components: {\n    GithubButton\n  },\n  // ...\n}'
+        case 'react':
+          return 'import GitHubButton from \'react-github-btn\''
         default:
           return '<!-- Place this tag in your head or just before your close body tag. -->\n<script async defer src="https://buttons.github.io/buttons.js"></scr' + 'ipt>'
       }
