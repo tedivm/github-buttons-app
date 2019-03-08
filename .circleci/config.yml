@@ -10,10 +10,10 @@ jobs:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
             - node-v1-{{ .Branch }}-
             - node-v1-
-      - run: npm install
+      - run: npm ci
       - save_cache:
           paths:
-            - node_modules
+            - ~/.npm
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm run build
   deploy:
@@ -22,7 +22,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          npm install
+          npm ci
           npm run build
       - add_ssh_keys:
           fingerprints:
