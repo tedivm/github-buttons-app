@@ -35,8 +35,8 @@ jobs:
           git remote add origin https://github.com/buttons/buttons.github.io.git
           git fetch origin master
           git reset origin/master
-          git add -A
-          git commit -m "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME@$CIRCLE_SHA1 $(cd .. && git log -1 --format='%B')"
+          git add --all
+          git commit --allow-empty --message "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME@$CIRCLE_SHA1 $(cd .. && git log -1 --format='%B')"
           git push origin master
 
 workflows:
