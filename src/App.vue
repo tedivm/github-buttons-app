@@ -57,7 +57,7 @@
           <h4>Preview and code</h4>
           <p>Try out your button, then copy and paste the code below into the HTML for your site.</p>
           <p :style="{ height: options.largeButton ? '28px' : '20px' }">
-            <github-button v-bind="{ ...attrs, 'data-show-count': attrs['data-show-count'] && !timeoutID }"></github-button>
+            <github-button v-bind="getPreviewAttrs()"></github-button>
           </p>
           <div class="form-group">
             <snippet :code="templateHTML"></snippet>
@@ -266,6 +266,11 @@ export default {
       if (!value) return ''
       value = value.toString()
       return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
+  methods: {
+    getPreviewAttrs () {
+      return { ...this.attrs, 'data-show-count': this.attrs['data-show-count'] && !this.timeoutID }
     }
   }
 }
