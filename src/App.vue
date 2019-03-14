@@ -117,7 +117,15 @@ export default {
         largeButton: false,
         showCount: false,
         standardIcon: false,
-        syntax: 'html'
+        syntax: ((referrer) => {
+          if (/\bvue-github-button\b/i.test(referrer)) {
+            return 'vue'
+          }
+          if (/\breact-github-btn\b/i.test(referrer)) {
+            return 'react'
+          }
+          return 'html'
+        })(document.referrer)
       },
       timeoutID: 0
     }
