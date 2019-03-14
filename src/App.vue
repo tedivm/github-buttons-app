@@ -8,7 +8,7 @@
             <div class="form-check">
               <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="type" :value="type.value" v-model="options.type">{{ type.value | capitalize }}<br>
-                <span aria-hidden="true"><github-button href="#" data-size="large" :data-icon="type.icon" :data-text="$options.filters.capitalize(type.value)"></github-button></span>
+                <github-button href="#" data-size="large" :data-icon="type.icon" :data-text="$options.filters.capitalize(type.value)" aria-hidden="true"></github-button>
               </label>
             </div>
           </div>

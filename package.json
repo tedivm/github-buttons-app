@@ -10,7 +10,7 @@
   "dependencies": {
     "github-buttons": "github:ntkme/github-buttons#v2.2.5",
     "vue": "^2.6.8",
-    "vue-github-button": "^1.0.5"
+    "vue-github-button": "^1.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.1",
