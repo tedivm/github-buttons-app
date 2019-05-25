@@ -265,7 +265,7 @@ export default {
         case 'react':
           return 'import GitHubButton from \'react-github-btn\''
         default:
-          return '<!-- Place this tag in your head or just before your close body tag. -->\n<script async defer src="https://buttons.github.io/buttons.js"></scr' + 'ipt>'
+          return '<!-- Place this tag in your head or just before your close body tag. -->\n<script async defer src="https://gitbuttons.tedivm.com/buttons.js"></scr' + 'ipt>'
       }
     }
   },
